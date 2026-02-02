@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400169199624",
+    "project_id": "news-app-symmetry-a7f1d",
+    "storage_bucket": "news-app-symmetry-a7f1d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400169199624:android:bbac82cb31d512015689bd",
+        "android_client_info": {
+          "package_name": "com.example.news_app_clean_architecture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2eUV5iwqnQn5qQ8pWgLxs2vMaiPk8Usc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
