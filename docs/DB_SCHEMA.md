@@ -12,6 +12,7 @@ Stores articles created within the app.
 |-------|------|-------------|
 | id | string | Yes | Unique article identifier (auto-generated) |
 | title | string | Yes | Article title |
+| author | string | Yes | Article author name |
 | content | string | Yes | Full article content |
 | thumbnailURL | string | Yes | Reference to image in Firebase Cloud Storage: `media/articles/{filename}` |
 | createdAt | timestamp | Yes | Creation timestamp |
@@ -23,6 +24,7 @@ Stores articles created within the app.
 {
   "id": "article123",
   "title": "My First Article",
+  "author": "John Doe",
   "content": "This is the full content of my first article.",
   "thumbnailURL": "media/articles/article_123.jpg",
   "createdAt": "Timestamp(2024, 1, 5)"
