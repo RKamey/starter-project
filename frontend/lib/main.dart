@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RemoteArticlesBloc>(
-      create: (context) => sl()..add(const GetArticles()),
+      create: (context) => sl<RemoteArticlesBloc>()..add(const GetArticles()),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: theme(),

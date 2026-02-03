@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../injection_container.dart';
 import '../../../domain/entities/article.dart';
@@ -90,11 +91,26 @@ class ArticleDetailsView extends HookWidget {
   }
 
   Widget _buildArticleDescription() {
+    final String markdownContent = [
+      if (article!.description != null && article!.description!.isNotEmpty)
+        article!.description!,
+      if (article!.content != null && article!.content!.isNotEmpty)
+        article!.content!,
+    ].join('\n\n');
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
-      child: Text(
-        '${article!.description ?? ''}\n\n${article!.content ?? ''}',
-        style: const TextStyle(fontSize: 16),
+      child: MarkdownBody(
+        data:
+            markdownContent.isEmpty ? 'No content available' : markdownContent,
+        styleSheet: MarkdownStyleSheet(
+          p: const TextStyle(fontSize: 16, height: 1.5),
+          h1: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          h2: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          h3: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          strong: const TextStyle(fontWeight: FontWeight.bold),
+          em: const TextStyle(fontStyle: FontStyle.italic),
+        ),
       ),
     );
   }

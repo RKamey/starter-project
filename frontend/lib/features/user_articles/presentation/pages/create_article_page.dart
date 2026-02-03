@@ -39,12 +39,40 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   }
 
   void _submitArticle(BuildContext context) {
-    if (_titleController.text.trim().isEmpty ||
-        _authorController.text.trim().isEmpty ||
-        _contentController.text.trim().isEmpty) {
+    if (_titleController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please fill in all fields'),
+          content: Text('Title is required'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (_titleController.text.trim().length > 100) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Title must be less than 100 characters'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (_authorController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Author is required'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (_contentController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Content is required'),
           backgroundColor: Colors.red,
         ),
       );
@@ -52,13 +80,13 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
     }
 
     context.read<UserArticlesBloc>().add(
-      CreateUserArticle(
-        title: _titleController.text.trim(),
-        author: _authorController.text.trim(),
-        content: _contentController.text.trim(),
-        imageFile: _selectedImage,
-      ),
-    );
+          CreateUserArticle(
+            title: _titleController.text.trim(),
+            author: _authorController.text.trim(),
+            content: _contentController.text.trim(),
+            imageFile: _selectedImage,
+          ),
+        );
   }
 
   @override
@@ -110,7 +138,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
               _buildLabel('Title'),
               _buildTextField(
                 controller: _titleController,
-                hintText: 'Enter article title',
+                hintText: 'Enter article title (max 100 characters)',
                 maxLines: 1,
               ),
               const SizedBox(height: 16),
@@ -128,7 +156,8 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
               _buildLabel('Content'),
               _buildTextField(
                 controller: _contentController,
-                hintText: 'Write your article here...',
+                hintText:
+                    'Write your article here...\n\nUse markdown syntax for formatting.',
                 maxLines: 10,
               ),
               const SizedBox(height: 24),
