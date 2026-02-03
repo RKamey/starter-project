@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_clean_architecture/features/user_articles/presentation/bloc/user_article_bloc.dart';
+import 'package:news_app_clean_architecture/features/user_articles/presentation/pages/create_article_page.dart';
+import 'package:news_app_clean_architecture/injection_container.dart';
 
 import '../../features/daily_news/domain/entities/article.dart';
 import '../../features/daily_news/presentation/pages/article_detail/article_detail.dart';
@@ -17,6 +21,14 @@ class AppRoutes {
 
       case '/SavedArticles':
         return _materialRoute(const SavedArticles());
+
+      case '/CreateArticle':
+        return _materialRoute(
+          BlocProvider<UserArticlesBloc>(
+            create: (context) => sl(),
+            child: const CreateArticlePage(),
+          ),
+        );
         
       default:
         return _materialRoute(const DailyNews());
