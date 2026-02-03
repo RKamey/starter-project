@@ -48,7 +48,7 @@ class ArticleWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 3,
                   height: double.maxFinite,
                   decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.08),
+                      color: Colors.black.withValues(alpha: 0.08),
                       image: DecorationImage(
                           image: imageProvider, fit: BoxFit.cover)),
                 ),
@@ -61,9 +61,9 @@ class ArticleWidget extends StatelessWidget {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 3,
                   height: double.maxFinite,
-                  child: CupertinoActivityIndicator(),
+                  child: const CupertinoActivityIndicator(),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                   ),
                 ),
               ),
@@ -75,9 +75,9 @@ class ArticleWidget extends StatelessWidget {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 3,
                   height: double.maxFinite,
-                  child: Icon(Icons.error),
+                  child: const Icon(Icons.error, color: Colors.grey),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                   ),
                 ),
               ),
@@ -105,6 +105,21 @@ class ArticleWidget extends StatelessWidget {
               ),
             ),
 
+            if (article!.author != null && article!.author!.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  'By ${article!.author}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+
             // Description
             Expanded(
               child: Padding(
@@ -112,6 +127,7 @@ class ArticleWidget extends StatelessWidget {
                 child: Text(
                   article!.description ?? '',
                   maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
@@ -122,7 +138,7 @@ class ArticleWidget extends StatelessWidget {
                 const Icon(Icons.timeline_outlined, size: 16),
                 const SizedBox(width: 4),
                 Text(
-                  article!.publishedAt!,
+                  article!.publishedAt ?? 'Unknown date',
                   style: const TextStyle(
                     fontSize: 12,
                   ),
