@@ -58,12 +58,10 @@ class UserArticleFirebaseDataSourceImpl implements UserArticleFirebaseDataSource
   @override
   Future<void> deleteArticle(String articleId) async {
     try {
-      // Delete from Firestore
       await _firestore.collection('articles').doc(articleId).delete();
 
-      // Delete thumbnail from Storage
       try {
-        await _storage.ref('media/articles/$articleId').delete();
+        await _storage.ref('media/articles/$articleId.jpg').delete();
       } catch (e) {
         // If thumbnail doesn't exist, continue
       }
@@ -75,8 +73,15 @@ class UserArticleFirebaseDataSourceImpl implements UserArticleFirebaseDataSource
   @override
   Future<String> uploadThumbnail(File imageFile, String articleId) async {
     try {
-      final storageRef = _storage.ref('media/articles/$articleId');
-      await storageRef.putFile(imageFile);
+      final storageRef = _storage.ref('media/articles/$articleId.jpg');
+
+      final uploadTask = storageRef.putFile(
+        imageFile,
+        SettableMetadata(contentType: 'image/jpeg'),
+      );
+
+      await uploadTask;
+
       final downloadURL = await storageRef.getDownloadURL();
       return downloadURL;
     } catch (e) {
