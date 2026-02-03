@@ -88,7 +88,7 @@ Future<void> initializeDependencies() async {
 
   //Blocs - Daily News
   sl.registerFactory<RemoteArticlesBloc>(
-    ()=> RemoteArticlesBloc(sl())
+    ()=> RemoteArticlesBloc(sl<GetUserArticlesUseCase>())
   );
 
   sl.registerFactory<LocalArticleBloc>(
